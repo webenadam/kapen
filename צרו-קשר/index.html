@@ -163,6 +163,31 @@ $(window).scroll(function (event) {
 </div>
 
 </form>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+(function(){
+  emailjs.init('iHE1luGcQi6vcV1Cf');
+  document.getElementById('form_oq0gjh').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var btn = this.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.textContent = 'שולח...';
+    emailjs.send('service_9u8wk8i', 'template_ukj6ma8', {
+      from_name:  document.getElementById('field_hg108a').value,
+      phone:      document.getElementById('field_phone').value,
+      from_email: document.getElementById('field_f3aff3').value,
+      message:    document.getElementById('field_jyipf5').value,
+    }).then(function() {
+      document.getElementById('form_oq0gjh').innerHTML = '<p style="text-align:center;color:#4a4a4a;font-size:1.3em;padding:30px">ההודעה נשלחה בהצלחה! נחזור אליך בהקדם.</p>';
+    }, function(err) {
+      btn.disabled = false;
+      btn.textContent = 'שלח';
+      alert('שגיאה בשליחה. נסה שוב או פנה בטלפון.');
+      console.error('EmailJS error:', err);
+    });
+  });
+})();
+</script>
 </div>
 
 <div class="wpb_text_column wpb_content_element ">
